@@ -1,5 +1,6 @@
 #ifndef CONSOLEMANAGER_H
 #define CONSOLEMANAGER_H
+#include <QObject>
 #include <QTextStream>
 #include <QString>
 #include <QDebug>
@@ -10,8 +11,11 @@
 class ConsoleManager
 {
 private:
+
     ConsoleManager();
 public:
+
+
     void static Start()
     {
         std::thread reader(ConsoleManager::ConsoleReader);

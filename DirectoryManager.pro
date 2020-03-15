@@ -16,6 +16,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         consolemanager.cpp \
+        directorymanager.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -24,4 +25,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    consolemanager.h
+    consolemanager.h \
+    directorymanager.h

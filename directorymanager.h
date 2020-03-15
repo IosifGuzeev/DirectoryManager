@@ -8,7 +8,7 @@
 #include <QMap>
 #include <QDateTime>
 #include <QFileInfo>
-
+#include "consolemanager.h"
 struct FileInfo
 {
     bool isExist;

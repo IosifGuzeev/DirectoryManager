@@ -18,13 +18,13 @@ void DirectoryManager::AddFiles(const QVector<QString> &paths)
         watcher->addPath(path);
         FilesInfo->insert(path, FileInfo(path));
     }
-    printer->PrintInfo("List of files:");
+    ConsoleManager::Write("List of files:");
     for(auto &file: watcher->files())
     {
-        printer->PrintInfo(file);
+        ConsoleManager::Write(file);
     }
 
-    printer->PrintInfo("End of list");
+    ConsoleManager::Write("End of list");
     connect(DirectoryManager::GetManager()->watcher, &QFileSystemWatcher::directoryChanged, DirectoryManager::GetManager(), DirectoryManager::PrintDirectoryChanges);
 }
 
@@ -41,16 +41,16 @@ void DirectoryManager::PrintDirectoryChanges(const QString &path)
             {
                 if(newState.isExist)
                 {
-                    printer->PrintInfo(key + " has been created!");
+                    ConsoleManager::Write(key + " has been created!");
                 }
                 else
-                    printer->PrintInfo(key + " has been deleted!");
+                    ConsoleManager::Write(key + " has been deleted!");
                 FilesInfo->find(key).operator->()->isExist = newState.isExist;
             }
 
             if (newState.isExist && oldState.size != newState.size)
             {
-                printer->PrintInfo(key + " got new size: " + newState.size);
+                ConsoleManager::Write(key + " got new size: " + QString::number(newState.size));
                 FilesInfo->find(key).operator->()->size = newState.size;
             }
 
