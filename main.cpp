@@ -1,8 +1,9 @@
 #include <QCoreApplication>
+#include "consolemanager.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
-
-    return a.exec();
+    ConsoleManager::ConsoleReader();
+    //QCoreApplication a(argc, argv);
+    //return a.exec();
 }
