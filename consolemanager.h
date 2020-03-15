@@ -6,13 +6,26 @@
 #include <QDebug>
 #include <iostream>
 #include <string>
+#include <vector>
 #include <thread>
+
 
 class ConsoleManager
 {
 private:
-
     ConsoleManager();
+
+    static void ParseComand(const QString&comand)
+    {
+        auto keyWords = comand.split('-').toVector();
+        if (keyWords.count() != 2)
+            ConsoleManager::Write("Wrong keywords count!");
+        if (keyWords[1].toLower() == "add")
+        {
+
+        }
+    }
+
 public:
 
 
@@ -28,7 +41,7 @@ public:
         while (true)
         {
             std::cin >> command;
-            qDebug() << QString(command.c_str());
+            ParseComand(command.c_str());
         }
     }
 

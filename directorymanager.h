@@ -9,6 +9,7 @@
 #include <QDateTime>
 #include <QFileInfo>
 #include "consolemanager.h"
+
 struct FileInfo
 {
     bool isExist;
@@ -41,6 +42,15 @@ public:
 
     static void AddFiles(const QVector<QString> &paths);
 
+    static void DeleteFiles(const QVector<QString> &paths)
+    {
+        for(auto &path: paths)
+        {
+            if (FilesInfo->find(path) == FilesInfo->end())
+                ConsoleManager::Write("File with path " + path + " not found!");
+            FilesInfo->erase(FilesInfo->find(path));
+        }
+    }
 signals:
 private slots:
     static void PrintDirectoryChanges(const QString &path);
