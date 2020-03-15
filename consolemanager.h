@@ -25,6 +25,7 @@ public:
             qDebug() << QString(value.c_str());
         }
     }
+
 };
 
 #endif // CONSOLEMANAGER_H
