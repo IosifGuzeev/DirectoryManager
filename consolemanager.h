@@ -5,25 +5,33 @@
 #include <QDebug>
 #include <iostream>
 #include <string>
+#include <thread>
+#include "directorymanager.h"
 
 class ConsoleManager
 {
 private:
     ConsoleManager();
 public:
-    ConsoleManager &GetInstange()
+    void static Start()
     {
-        auto manager = ConsoleManager();
-        return manager;
+        std::thread reader(ConsoleManager::ConsoleReader);
+        reader.detach();
     }
+
     static void ConsoleReader()
     {
+        std::string command;
         while (true)
         {
-            std::string value;
-            std::cin >> value;
-            qDebug() << QString(value.c_str());
+            std::cin >> command;
+            qDebug() << QString(command.c_str());
         }
+    }
+
+    void static Write(const QString &msg)
+    {
+        qDebug() << msg;
     }
 
 };
