@@ -10,25 +10,13 @@
 #include <QFileInfo>
 #include "consolemanager.h"
 
+class ConsoleManager;
 struct FileInfo
 {
     bool isExist;
     qint64 size;
 
-    FileInfo(QString path)
-    {
-        QFileInfo qFileInfo(path);
-        if (qFileInfo.exists())
-        {
-            isExist = true;
-            size = qFileInfo.size();
-        }
-        else
-        {
-            isExist = false;
-            size = 0;
-        }
-    }
+    FileInfo(QString path);
 };
 
 class DirectoryManager : public QObject
@@ -42,15 +30,9 @@ public:
 
     static void AddFiles(const QVector<QString> &paths);
 
-    static void DeleteFiles(const QVector<QString> &paths)
-    {
-        for(auto &path: paths)
-        {
-            if (FilesInfo->find(path) == FilesInfo->end())
-                ConsoleManager::Write("File with path " + path + " not found!");
-            FilesInfo->erase(FilesInfo->find(path));
-        }
-    }
+    static void DeleteFiles(const QVector<QString> &paths);
+
+    static void PrintFiles();
 signals:
 private slots:
     static void PrintDirectoryChanges(const QString &path);

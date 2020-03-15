@@ -8,47 +8,24 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <directorymanager.h>
 
-
+class DirectoryManager;
 class ConsoleManager
 {
 private:
     ConsoleManager();
 
-    static void ParseComand(const QString&comand)
-    {
-        auto keyWords = comand.split('-').toVector();
-        if (keyWords.count() != 2)
-            ConsoleManager::Write("Wrong keywords count!");
-        if (keyWords[1].toLower() == "add")
-        {
-
-        }
-    }
+    static void ParseComand(const QString&comand);
 
 public:
 
 
-    void static Start()
-    {
-        std::thread reader(ConsoleManager::ConsoleReader);
-        reader.detach();
-    }
+    void static Start();
 
-    static void ConsoleReader()
-    {
-        std::string command;
-        while (true)
-        {
-            std::cin >> command;
-            ParseComand(command.c_str());
-        }
-    }
+    static void ConsoleReader();
 
-    void static Write(const QString &msg)
-    {
-        qDebug() << msg;
-    }
+    void static Write(const QString &msg);
 
 };
 

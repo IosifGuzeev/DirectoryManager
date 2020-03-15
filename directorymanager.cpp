@@ -18,14 +18,25 @@ void DirectoryManager::AddFiles(const QVector<QString> &paths)
         watcher->addPath(path);
         FilesInfo->insert(path, FileInfo(path));
     }
-    ConsoleManager::Write("List of files:");
-    for(auto &file: watcher->files())
-    {
-        ConsoleManager::Write(file);
-    }
-
-    ConsoleManager::Write("End of list");
     connect(DirectoryManager::GetManager()->watcher, &QFileSystemWatcher::directoryChanged, DirectoryManager::GetManager(), DirectoryManager::PrintDirectoryChanges);
+}
+
+void DirectoryManager::DeleteFiles(const QVector<QString> &paths)
+{
+    for(auto &path: paths)
+    {
+        if (FilesInfo->find(path) == FilesInfo->end())
+            ConsoleManager::Write("File with path " + path + " not found!");
+        FilesInfo->erase(FilesInfo->find(path));
+    }
+}
+
+void DirectoryManager::PrintFiles()
+{
+    for(auto i = FilesInfo->begin(); i != FilesInfo->end(); i++)
+    {
+        ConsoleManager::Write(i.key());
+    }
 }
 
 void DirectoryManager::PrintDirectoryChanges(const QString &path)
@@ -56,5 +67,20 @@ void DirectoryManager::PrintDirectoryChanges(const QString &path)
 
 
         }
+    }
+}
+
+FileInfo::FileInfo(QString path)
+{
+    QFileInfo qFileInfo(path);
+    if (qFileInfo.exists())
+    {
+        isExist = true;
+        size = qFileInfo.size();
+    }
+    else
+    {
+        isExist = false;
+        size = 0;
     }
 }
