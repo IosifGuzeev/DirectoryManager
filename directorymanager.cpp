@@ -28,7 +28,8 @@ void DirectoryManager::DeleteFiles(const QVector<QString> &paths)
     {
         if (FilesInfo->find(path) == FilesInfo->end())
             ConsoleManager::Write("File with path " + path + " not found!");
-        FilesInfo->erase(FilesInfo->find(path));
+        else
+            FilesInfo->erase(FilesInfo->find(path));
     }
 }
 
