@@ -7,7 +7,10 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
     ConsoleManager::Start();
+    DirectoryManager::Start();
+
     QVector<QString> paths = {
         "C:\\test\\1.txt",
         "C:\\test\\2.txt",

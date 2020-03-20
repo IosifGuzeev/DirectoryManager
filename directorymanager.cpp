@@ -13,12 +13,13 @@ void DirectoryManager::AddFiles(const QVector<QString> &paths)
 {
     for (auto &path:paths)
     {
+        //Будем отслеживать директории, где хранятся файлы,
+        //Это позволит нам отследить как удаление наблюдаемоего файла, так и добавление.
         QString directory = path.left(path.lastIndexOf('\\'));
         watcher->addPath(directory);
         watcher->addPath(path);
         FilesInfo->insert(path, FileInfo(path));
     }
-    connect(DirectoryManager::GetManager()->watcher, &QFileSystemWatcher::directoryChanged, DirectoryManager::GetManager(), DirectoryManager::PrintDirectoryChanges);
 }
 
 void DirectoryManager::DeleteFiles(const QVector<QString> &paths)
@@ -64,8 +65,6 @@ void DirectoryManager::PrintDirectoryChanges(const QString &path)
                 ConsoleManager::Write(key + " got new size: " + QString::number(newState.size));
                 FilesInfo->find(key).operator->()->size = newState.size;
             }
-
-
         }
     }
 }

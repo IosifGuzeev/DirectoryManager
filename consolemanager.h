@@ -9,23 +9,25 @@
 #include <vector>
 #include <thread>
 #include <directorymanager.h>
-
+///
+/// Класс, отвечающий на работу с консолью (вывод информации и считывание команд).
+/// Поддерживает команды:
+/// 1) add-%path%
+/// 2) del-%path%
 class DirectoryManager;
 class ConsoleManager
 {
 private:
     ConsoleManager();
-
-    static void ParseComand(const QString&comand);
+    static void ConsoleReader();   //Простейшие считывание с консоли.
+    static void ParseComand(const QString&comand); //Принимает строку и, исходя из её вида, производит какие-либо действия и выводит информацию.
 
 public:
 
 
-    void static Start();
+    void static Start();    //Основная функция, запускает работу класса в отдельном потоке.
 
-    static void ConsoleReader();
-
-    void static Write(const QString &msg);
+    void static Write(const QString &msg);  //Вывод msg на консоль.
 
 };
 

@@ -10,8 +10,9 @@
 #include <QFileInfo>
 #include "consolemanager.h"
 
+
 class ConsoleManager;
-struct FileInfo
+struct FileInfo //Вспомогательная структура, представляющая собой пакет информации о конкретном файле.
 {
     bool isExist;
     qint64 size;
@@ -19,6 +20,11 @@ struct FileInfo
     FileInfo(QString path);
 };
 
+
+///
+/// Основной класс, отвечающий за работу с файлами.
+/// Отслеживает удаление, добавление и изменение файлов из списка FilesInfo
+///
 class DirectoryManager : public QObject
 {
     static QFileSystemWatcher *watcher;
@@ -26,15 +32,25 @@ class DirectoryManager : public QObject
     Q_OBJECT
 
 public:
+    static void Start()
+    {
+        connect(DirectoryManager::GetManager()->watcher, &QFileSystemWatcher::directoryChanged, DirectoryManager::GetManager(), DirectoryManager::PrintDirectoryChanges);
+    }
+
     static const DirectoryManager* GetManager();
 
-    static void AddFiles(const QVector<QString> &paths);
+    static void AddFiles(const QVector<QString> &paths); //Добавить все файлы с заданными адресами.
 
-    static void DeleteFiles(const QVector<QString> &paths);
+    static void DeleteFiles(const QVector<QString> &paths); //Удалить все файлы с заданными адресами.
 
-    static void PrintFiles();
+    static void PrintFiles();   //Вывести все отслеживаемые файлы.
 signals:
 private slots:
+    ///
+    /// \brief DirectoryManager::PrintDirectoryChanges
+    /// \param path Адрес директории, в которой было совершено изменение.
+    /// При получении сигнала производится проверка всех отслеживаемых файлов.
+    /// При наличии у них каких-либо изменений будет выведенно соответствующее сообщение в консоль.
     static void PrintDirectoryChanges(const QString &path);
 
 private:
