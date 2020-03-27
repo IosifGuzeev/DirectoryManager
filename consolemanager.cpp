@@ -30,6 +30,11 @@ void ConsoleManager::ParseComand(const QString &comand)
             ConsoleManager::Write("Wrong keywords count!");
             return;
         }
+        if (keyWords[1].length() == 0)
+        {
+            ConsoleManager::Write("path is empty!");
+            return;
+        }
         if (keyWords[0].toLower() == "add")
         {
             DirectoryManager::AddFiles(QVector<QString>({keyWords[1]}));

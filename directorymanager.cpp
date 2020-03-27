@@ -43,13 +43,12 @@ void DirectoryManager::PrintFiles(bool fullInfo = false)
             if(i.value().isExist)
             {
                 ConsoleManager::Write("Is exist: True");
-                ConsoleManager::Write("Size: " + QString::number(i.value().size));
             }
             else
             {
                 ConsoleManager::Write("Is exist: False");
-                ConsoleManager::Write("Size before removing (0 if file never existed): " + QString::number(i.value().size));
             }
+            ConsoleManager::Write("Size: " + QString::number(i.value().size));
         }
     }
 }
