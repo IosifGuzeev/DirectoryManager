@@ -8,6 +8,7 @@
 #include <QMap>
 #include <QDateTime>
 #include <QFileInfo>
+#include <stdlib.h>
 #include "consolemanager.h"
 
 
@@ -34,6 +35,7 @@ class DirectoryManager : public QObject
 public:
     static void Start()
     {
+        std::system("CLS");
         connect(DirectoryManager::GetManager()->watcher, &QFileSystemWatcher::directoryChanged, DirectoryManager::GetManager(), DirectoryManager::PrintDirectoryChanges);
     }
 
