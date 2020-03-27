@@ -9,7 +9,11 @@ void ConsoleManager::ParseComand(const QString &comand)
 {
     if (comand == "ls")
     {
-        DirectoryManager::PrintFiles();
+        DirectoryManager::PrintFiles(false);
+    }
+    else if(comand == "lsi")
+    {
+        DirectoryManager::PrintFiles(true);
     }
     else if (comand == "help")
     {
@@ -60,5 +64,7 @@ void ConsoleManager::ConsoleReader()
 
 void ConsoleManager::Write(const QString &msg)
 {
-    qDebug() << msg;
+    auto output = qDebug();
+    output.noquote();
+    output << msg;
 }

@@ -33,11 +33,24 @@ void DirectoryManager::DeleteFiles(const QVector<QString> &paths)
     }
 }
 
-void DirectoryManager::PrintFiles()
+void DirectoryManager::PrintFiles(bool fullInfo = false)
 {
     for(auto i = FilesInfo->begin(); i != FilesInfo->end(); i++)
     {
-        ConsoleManager::Write(i.key());
+        ConsoleManager::Write(i.key() + ":");
+        if(fullInfo)
+        {
+            if(i.value().isExist)
+            {
+                ConsoleManager::Write("Is exist: True");
+                ConsoleManager::Write("Size: " + QString::number(i.value().size));
+            }
+            else
+            {
+                ConsoleManager::Write("Is exist: False");
+                ConsoleManager::Write("Size before removing (0 if file never existed): " + QString::number(i.value().size));
+            }
+        }
     }
 }
 
