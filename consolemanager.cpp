@@ -7,24 +7,39 @@ ConsoleManager::ConsoleManager()
 
 void ConsoleManager::ParseComand(const QString &comand)
 {
-    auto keyWords = comand.split('-').toVector();
-    if (keyWords.count() != 2)
-        ConsoleManager::Write("Wrong keywords count!");
-    if(keyWords[0].toLower() == "add" && keyWords[0].toLower() == "del")
+    if (comand == "ls")
     {
-        ConsoleManager::Write("Wrong comand!");
-        return;
+        DirectoryManager::PrintFiles();
     }
-    if (keyWords[0].toLower() == "add")
+    else if (comand == "help")
     {
-        DirectoryManager::AddFiles(QVector<QString>({keyWords[1]}));
+        ConsoleManager::Write("\'help\' - get list of comands");
+        ConsoleManager::Write("\'ls\' - list of all tracked files");
+        ConsoleManager::Write("\'add-%path%\' - add file with this path to the list of tracked files");
+        ConsoleManager::Write("\'delete-%path%\' - delete file with this path from the list of tracked files");
     }
     else
     {
-        DirectoryManager::DeleteFiles(QVector<QString>({keyWords[1]}));
+        auto keyWords = comand.split('-').toVector();
+        if (keyWords.count() != 2)
+        {
+            ConsoleManager::Write("Wrong keywords count!");
+            return;
+        }
+        if (keyWords[0].toLower() == "add")
+        {
+            DirectoryManager::AddFiles(QVector<QString>({keyWords[1]}));
+        }
+        else if (keyWords[0].toLower() == "delete")
+        {
+            DirectoryManager::DeleteFiles(QVector<QString>({keyWords[1]}));
+        }
+        else
+        {
+            ConsoleManager::Write("Wrong comand!");
+            return;
+        }
     }
-    qDebug() << "New files list:";
-    DirectoryManager::PrintFiles();
 }
 
 void ConsoleManager::Start()
