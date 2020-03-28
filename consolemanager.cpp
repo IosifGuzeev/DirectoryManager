@@ -8,7 +8,8 @@ const QVector<QString> ConsoleManager::comands = {
         "\'delete-%path%\' - delete file with this path from the list of tracked files",
         "\'test-%path%-&count%\' - creates given count of test files in folder with given path",
         "\'addtest-%path%-&count%\' - same as test but adds this files in tracking list",
-        "\'remove\' - removes all files created with test comand"
+        "\'remove\' - removes all files created with test comand",
+        "\'clear\' - clear list of tracking files"
     };
 
 QVector<QString> ConsoleManager::testFiles = {};
@@ -70,6 +71,14 @@ void ConsoleManager::ParseComand(const QString &input)
             else
             {
                 ConsoleManager::Write("No test files created yet");
+            }
+        }
+        else if (comand == "clear")
+        {
+            auto files = DirectoryManager::GetFilesInfo();
+            for(auto i = files.begin(); i != files.end(); i++)
+            {
+                DirectoryManager::DeleteFiles(QVector<QString>({i.key()}));
             }
         }
         else

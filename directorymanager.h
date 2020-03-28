@@ -46,6 +46,11 @@ public:
     static void DeleteFiles(const QVector<QString> &paths); //Удалить все файлы с заданными адресами.
 
     static void PrintFiles(bool);   //Вывести все отслеживаемые файлы.
+
+    static QMap<QString, FileInfo> GetFilesInfo()
+    {
+        return *FilesInfo;
+    }
 signals:
 private slots:
     ///
