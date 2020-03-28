@@ -76,9 +76,37 @@ void ConsoleManager::ParseComand(const QString &input)
         }
         break;
     }
+    case 3:
+    {
+        auto path = keyWords[1];
+        auto params = keyWords[2];
+        if(comand == "test")
+        {
+            int filesCount;
+            try {
+                filesCount = params.toInt();
+            } catch (...) {
+                ConsoleManager::Write("Expected integer as files count parameter!");
+            }
+            QDir(QDir::homePath()).mkpath(path);
+            for(int i = 0; i < filesCount; i++)
+            {
+                QString filePath = path + "\\" + QString::number(i) + ".txt";
+                ConsoleManager::Write(filePath);
+                testFiles.append(filePath);
+                QFile file(filePath);
+                file.open(QIODevice::WriteOnly);
+                file.write("This is test file");
+                file.close();
+            }
+            return;
+        }
+        break;
+    }
     default:
     {
         ConsoleManager::Write("Wrong comand!");
+        break;
     }
     }
 }

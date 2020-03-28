@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <QDir>
 #include <directorymanager.h>
 ///
 /// Класс, отвечающий на работу с консолью (вывод информации и считывание команд).
@@ -22,7 +23,7 @@ private:
     static void ConsoleReader();   //Простейшие считывание с консоли.
     static void ParseComand(const QString&comand); //Принимает строку и, исходя из её вида, производит какие-либо действия и выводит информацию.
 
-
+    static QVector<QString> testFiles;
     const static QVector<QString> comands;
 
 public:
