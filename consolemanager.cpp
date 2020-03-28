@@ -5,50 +5,74 @@ ConsoleManager::ConsoleManager()
 
 }
 
-void ConsoleManager::ParseComand(const QString &comand)
+void ConsoleManager::ParseComand(const QString &input)
 {
-    if (comand == "ls")
+    auto keyWords = input.split('-').toVector();
+
+    if(keyWords.count() == 0)
     {
-        DirectoryManager::PrintFiles(false);
+        ConsoleManager::Write("Wrong comand");
+        return;
     }
-    else if(comand == "lsi")
+    for(auto &s: keyWords)
     {
-        DirectoryManager::PrintFiles(true);
-    }
-    else if (comand == "help")
-    {
-        ConsoleManager::Write("\'help\' - get list of comands");
-        ConsoleManager::Write("\'ls\' - list of all tracked files");
-        ConsoleManager::Write("\'lsi\' - ls with additional info about every tracked file");
-        ConsoleManager::Write("\'add-%path%\' - add file with this path to the list of tracked files");
-        ConsoleManager::Write("\'delete-%path%\' - delete file with this path from the list of tracked files");
-    }
-    else
-    {
-        auto keyWords = comand.split('-').toVector();
-        if (keyWords.count() != 2)
+        if (s.length() == 0)
         {
-            ConsoleManager::Write("Wrong keywords count!");
+            ConsoleManager::Write("Wrong comand");
             return;
         }
-        if (keyWords[1].length() == 0)
+    }
+
+    auto comand = keyWords[0].toLower();
+    switch (keyWords.count())
+    {
+    case 1:
+    {
+        if (comand == "ls")
         {
-            ConsoleManager::Write("path is empty!");
-            return;
+            DirectoryManager::PrintFiles(false);
         }
-        if (keyWords[0].toLower() == "add")
+        else if(comand == "lsi")
         {
-            DirectoryManager::AddFiles(QVector<QString>({keyWords[1]}));
+            DirectoryManager::PrintFiles(true);
         }
-        else if (keyWords[0].toLower() == "delete")
+        else if (comand == "help")
         {
-            DirectoryManager::DeleteFiles(QVector<QString>({keyWords[1]}));
+            ConsoleManager::Write("\'help\' - get list of comands");
+            ConsoleManager::Write("\'ls\' - list of all tracked files");
+            ConsoleManager::Write("\'lsi\' - ls with additional info about every tracked file");
+            ConsoleManager::Write("\'add-%path%\' - add file with this path to the list of tracked files");
+            ConsoleManager::Write("\'delete-%path%\' - delete file with this path from the list of tracked files");
         }
         else
         {
             ConsoleManager::Write("Wrong comand!");
             return;
         }
+        break;
+    }
+    case 2:
+    {
+        auto path = keyWords[1];
+        if (comand == "add")
+        {
+            DirectoryManager::AddFiles(QVector<QString>({path}));
+        }
+        else if (comand == "delete")
+        {
+            DirectoryManager::DeleteFiles(QVector<QString>({path}));
+        }
+        else
+        {
+            ConsoleManager::Write("Wrong comand!");
+            return;
+        }
+        break;
+    }
+    default:
+    {
+        ConsoleManager::Write("Wrong comand!");
+    }
     }
 }
 
