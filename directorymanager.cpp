@@ -35,6 +35,11 @@ void DirectoryManager::DeleteFiles(const QVector<QString> &paths)
 
 void DirectoryManager::PrintFiles(bool fullInfo = false)
 {
+    if(FilesInfo->count() == 0)
+    {
+        ConsoleManager::Write("No files in a track list");
+        return;
+    }
     for(auto i = FilesInfo->begin(); i != FilesInfo->end(); i++)
     {
         ConsoleManager::Write(i.key() + ":");
