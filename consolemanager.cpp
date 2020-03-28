@@ -103,11 +103,10 @@ void ConsoleManager::ParseComand(const QString &input)
         if(comand == "test")
         {
             int filesCount;
-            try {
-                filesCount = params.toInt();
-            } catch (...) {
+            bool status;
+            filesCount = params.toInt(&status);
+            if(!status)
                 ConsoleManager::Write("Expected integer as files count parameter!");
-            }
             QDir(QDir::homePath()).mkpath(path);
             for(int i = 0; i < filesCount; i++)
             {
