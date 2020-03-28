@@ -22,6 +22,9 @@ private:
     static void ConsoleReader();   //Простейшие считывание с консоли.
     static void ParseComand(const QString&comand); //Принимает строку и, исходя из её вида, производит какие-либо действия и выводит информацию.
 
+
+    const static QVector<QString> comands;
+
 public:
 
 

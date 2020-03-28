@@ -1,5 +1,13 @@
 #include "consolemanager.h"
 
+const QVector<QString> ConsoleManager::comands = {
+        "\'help\' - get list of comands",
+        "\'ls\' - list of all tracked files",
+        "\'lsi\' - ls with additional info about every tracked file",
+        "\'add-%path%\' - add file with this path to the list of tracked files",
+        "\'delete-%path%\' - delete file with this path from the list of tracked files"
+    };
+
 ConsoleManager::ConsoleManager()
 {
 
@@ -38,11 +46,10 @@ void ConsoleManager::ParseComand(const QString &input)
         }
         else if (comand == "help")
         {
-            ConsoleManager::Write("\'help\' - get list of comands");
-            ConsoleManager::Write("\'ls\' - list of all tracked files");
-            ConsoleManager::Write("\'lsi\' - ls with additional info about every tracked file");
-            ConsoleManager::Write("\'add-%path%\' - add file with this path to the list of tracked files");
-            ConsoleManager::Write("\'delete-%path%\' - delete file with this path from the list of tracked files");
+            for(auto com: comands)
+            {
+                ConsoleManager::Write(com);
+            }
         }
         else
         {
