@@ -30,7 +30,6 @@ public:
 
 
     void static Start();    //Основная функция, запускает работу класса в отдельном потоке.
-
     void static Write(const QString &msg);  //Вывод msg на консоль.
 
 };

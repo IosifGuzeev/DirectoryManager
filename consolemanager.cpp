@@ -5,8 +5,12 @@ const QVector<QString> ConsoleManager::comands = {
         "\'ls\' - list of all tracked files",
         "\'lsi\' - ls with additional info about every tracked file",
         "\'add-%path%\' - add file with this path to the list of tracked files",
-        "\'delete-%path%\' - delete file with this path from the list of tracked files"
+        "\'delete-%path%\' - delete file with this path from the list of tracked files",
+        "\'test-%path%-&count%\' - creates given count of test files in folder with given path",
+        "\'remove\' - removes all files created with test comand"
     };
+
+QVector<QString> ConsoleManager::testFiles = {};
 
 ConsoleManager::ConsoleManager()
 {
@@ -49,6 +53,22 @@ void ConsoleManager::ParseComand(const QString &input)
             for(auto com: comands)
             {
                 ConsoleManager::Write(com);
+            }
+        }
+        else if (comand == "remove")
+        {
+            if (testFiles.count() != 0)
+            {
+                for(auto &path: testFiles)
+                {
+                    QFile file(path);
+                    file.remove();
+                }
+                ConsoleManager::Write("All test files is removed");
+            }
+            else
+            {
+                ConsoleManager::Write("No test files created yet");
             }
         }
         else
@@ -125,6 +145,7 @@ void ConsoleManager::ConsoleReader()
         std::cin >> command;
         ParseComand(command.c_str());
     }
+    std::terminate();
 }
 
 void ConsoleManager::Write(const QString &msg)
