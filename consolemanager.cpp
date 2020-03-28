@@ -119,6 +119,10 @@ void ConsoleManager::ParseComand(const QString &input)
                 file.write("This is test file");
                 file.close();
             }
+        }
+        else
+        {
+            ConsoleManager::Write("Wrong comand!");
             return;
         }
         break;
