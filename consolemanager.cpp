@@ -19,6 +19,7 @@ void ConsoleManager::ParseComand(const QString &comand)
     {
         ConsoleManager::Write("\'help\' - get list of comands");
         ConsoleManager::Write("\'ls\' - list of all tracked files");
+        ConsoleManager::Write("\'lsi\' - ls with additional info about every tracked file");
         ConsoleManager::Write("\'add-%path%\' - add file with this path to the list of tracked files");
         ConsoleManager::Write("\'delete-%path%\' - delete file with this path from the list of tracked files");
     }
