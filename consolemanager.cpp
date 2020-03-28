@@ -7,6 +7,7 @@ const QVector<QString> ConsoleManager::comands = {
         "\'add-%path%\' - add file with this path to the list of tracked files",
         "\'delete-%path%\' - delete file with this path from the list of tracked files",
         "\'test-%path%-&count%\' - creates given count of test files in folder with given path",
+        "\'addtest-%path%-&count%\' - same as test but adds this files in tracking list",
         "\'remove\' - removes all files created with test comand"
     };
 
@@ -117,6 +118,26 @@ void ConsoleManager::ParseComand(const QString &input)
                 file.open(QIODevice::WriteOnly);
                 file.write("This is test file");
                 file.close();
+            }
+        }
+        else if(comand == "addtest")
+        {
+            int filesCount;
+            bool status;
+            filesCount = params.toInt(&status);
+            if(!status)
+                ConsoleManager::Write("Expected integer as files count parameter!");
+            QDir(QDir::homePath()).mkpath(path);
+            for(int i = 0; i < filesCount; i++)
+            {
+                QString filePath = path + "\\" + QString::number(i) + ".txt";
+                ConsoleManager::Write(filePath);
+                testFiles.append(filePath);
+                QFile file(filePath);
+                file.open(QIODevice::WriteOnly);
+                file.write("This is test file");
+                file.close();
+                DirectoryManager::AddFiles(QVector<QString>({filePath}));
             }
         }
         else
