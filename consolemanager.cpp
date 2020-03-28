@@ -118,9 +118,15 @@ void ConsoleManager::ParseComand(const QString &input)
             if(!status)
                 ConsoleManager::Write("Expected integer as files count parameter!");
             QDir(QDir::homePath()).mkpath(path);
-            for(int i = 0; i < filesCount; i++)
+            int i = 0;
+            for(int count = 0; count < filesCount; count++)
             {
-                QString filePath = path + "\\" + QString::number(i) + ".txt";
+                QString filePath = path + "\\" + QString::number(i) + ".txt";;
+                while(QFile::exists(filePath))
+                {
+                    i++;
+                    filePath = path + "\\" + QString::number(i) + ".txt";
+                }
                 ConsoleManager::Write(filePath);
                 testFiles.append(filePath);
                 QFile file(filePath);
@@ -137,9 +143,15 @@ void ConsoleManager::ParseComand(const QString &input)
             if(!status)
                 ConsoleManager::Write("Expected integer as files count parameter!");
             QDir(QDir::homePath()).mkpath(path);
-            for(int i = 0; i < filesCount; i++)
+            int i = 0;
+            for(int count = 0; count < filesCount; count++)
             {
-                QString filePath = path + "\\" + QString::number(i) + ".txt";
+                QString filePath = path + "\\" + QString::number(i) + ".txt";;
+                while(QFile::exists(filePath))
+                {
+                    i++;
+                    filePath = path + "\\" + QString::number(i) + ".txt";
+                }
                 ConsoleManager::Write(filePath);
                 testFiles.append(filePath);
                 QFile file(filePath);
